@@ -96,3 +96,4 @@ Build/Android/res/*/*
 
 # Rider
 .idea/*
+Plugins/Developer/RiderLink/*

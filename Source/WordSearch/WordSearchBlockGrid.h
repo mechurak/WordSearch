@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "WordSearchBlock.h"
 #include "GameFramework/Actor.h"
 #include "WordSearchBlockGrid.generated.h"
 
@@ -22,6 +23,16 @@ class AWordSearchBlockGrid : public AActor
 
 public:
 	AWordSearchBlockGrid();
+
+	UFUNCTION()
+	void SetStartBlock(int32 NewStartBlockPos);
+
+	UFUNCTION()
+	void SetCurrentBlock(int32 NewCurrentBlockPos);
+
+	UFUNCTION()
+	void Evaluate();
+
 
 	/** How many blocks have been clicked */
 	int32 Score;
@@ -48,6 +59,19 @@ public:
 	FORCEINLINE class USceneComponent* GetDummyRoot() const { return DummyRoot; }
 	/** Returns ScoreText subobject **/
 	FORCEINLINE class UTextRenderComponent* GetScoreText() const { return ScoreText; }
+
+private:
+	int32 getDirection();
+
+protected:
+	UPROPERTY(BlueprintReadOnly, Category = Tile)
+	TArray<AWordSearchBlock*> Blocks;
+	
+	UPROPERTY(BlueprintReadOnly, Category = Tile)
+	int32 StartBlockPos;
+
+	UPROPERTY(BlueprintReadOnly, Category = Tile)
+	int32 CurrentBlockPos;
 };
 
 

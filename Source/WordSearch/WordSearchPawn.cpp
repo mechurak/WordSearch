@@ -18,33 +18,21 @@ void AWordSearchPawn::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 
-	if (APlayerController* PC = Cast<APlayerController>(GetController()))
-	{
-		if (UHeadMountedDisplayFunctionLibrary::IsHeadMountedDisplayEnabled())
-		{
-			if (UCameraComponent* OurCamera = PC->GetViewTarget()->FindComponentByClass<UCameraComponent>())
-			{
-				FVector Start = OurCamera->GetComponentLocation();
-				FVector End = Start + (OurCamera->GetComponentRotation().Vector() * 8000.0f);
-				TraceForBlock(Start, End, true);
-			}
-		}
-		else
-		{
-			FVector Start, Dir, End;
-			PC->DeprojectMousePositionToWorld(Start, Dir);
-			End = Start + (Dir * 8000.0f);
-			TraceForBlock(Start, End, false);
-		}
-	}
+	// if (APlayerController* PC = Cast<APlayerController>(GetController()))
+	// {
+	// 	FVector Start, Dir, End;
+	// 	PC->DeprojectMousePositionToWorld(Start, Dir);
+	// 	End = Start + (Dir * 8000.0f);
+	// 	TraceForBlock(Start, End, false);
+	// }
 }
 
 void AWordSearchPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
-	PlayerInputComponent->BindAction("ResetVR", EInputEvent::IE_Pressed, this, &AWordSearchPawn::OnResetVR);
-	PlayerInputComponent->BindAction("TriggerClick", EInputEvent::IE_Pressed, this, &AWordSearchPawn::TriggerClick);
+	// PlayerInputComponent->BindAction("ResetVR", EInputEvent::IE_Pressed, this, &AWordSearchPawn::OnResetVR);
+	// PlayerInputComponent->BindAction("TriggerClick", EInputEvent::IE_Pressed, this, &AWordSearchPawn::TriggerClick);
 }
 
 void AWordSearchPawn::CalcCamera(float DeltaTime, struct FMinimalViewInfo& OutResult)

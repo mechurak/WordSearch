@@ -23,6 +23,21 @@ class AWordSearchBlock : public AActor
 public:
 	AWordSearchBlock();
 
+	void BeginPlay() override;
+
+	/** Handle the block being touched  */
+	UFUNCTION()
+	void OnFingerPressedBlock(ETouchIndex::Type FingerIndex, UPrimitiveComponent* TouchedComponent);
+
+	UFUNCTION()
+	void OnFingerEndedBlock(ETouchIndex::Type FingerIndex, UPrimitiveComponent* TouchedComponent);
+
+	UFUNCTION()
+	void OnFingerEnteredBlock(ETouchIndex::Type FingerIndex, UPrimitiveComponent* TouchedComponent);
+
+	UFUNCTION()
+	void OnFingerLeavedBlock(ETouchIndex::Type FingerIndex, UPrimitiveComponent* TouchedComponent);
+
 	/** Are we currently active? */
 	bool bIsActive;
 
@@ -46,19 +61,33 @@ public:
 	UFUNCTION()
 	void BlockClicked(UPrimitiveComponent* ClickedComp, FKey ButtonClicked);
 
-	/** Handle the block being touched  */
-	UFUNCTION()
-	void OnFingerPressedBlock(ETouchIndex::Type FingerIndex, UPrimitiveComponent* TouchedComponent);
-
 	void HandleClicked();
 
 	void Highlight(bool bOn);
+
+	void SetGridAddress(int32 NewLocation)
+	{
+		GridAddress = NewLocation;
+	}
+	int32 GetGridAddress() const
+	{
+		return GridAddress;
+	}
+
+	void ResetBlock();
+
+	void Select();
 
 public:
 	/** Returns DummyRoot subobject **/
 	FORCEINLINE class USceneComponent* GetDummyRoot() const { return DummyRoot; }
 	/** Returns BlockMesh subobject **/
 	FORCEINLINE class UStaticMeshComponent* GetBlockMesh() const { return BlockMesh; }
+
+protected:
+	/** Location on the grid as a 1D key/value. To find neighbors, ask the grid. */
+	UPROPERTY(BlueprintReadOnly, Category = Tile)
+	int32 GridAddress;
 };
 
 

@@ -4,8 +4,9 @@
 
 AWordSearchPlayerController::AWordSearchPlayerController()
 {
-	bShowMouseCursor = true;
+	// bShowMouseCursor = true;
 	bEnableClickEvents = true;
 	bEnableTouchEvents = true;
-	DefaultMouseCursor = EMouseCursor::Crosshairs;
+	bEnableTouchOverEvents = bEnableMouseOverEvents = true;
+	// DefaultMouseCursor = EMouseCursor::Crosshairs;
 }
