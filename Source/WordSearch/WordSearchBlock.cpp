@@ -4,8 +4,11 @@
 #include "WordSearchBlockGrid.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Components/StaticMeshComponent.h"
+#include "Components/TextRenderComponent.h"
 #include "Engine/StaticMesh.h"
 #include "Materials/MaterialInstance.h"
+
+#define LOCTEXT_NAMESPACE "PuzzleBlock"
 
 AWordSearchBlock::AWordSearchBlock()
 {
@@ -45,6 +48,17 @@ AWordSearchBlock::AWordSearchBlock()
 	BaseMaterial = ConstructorStatics.BaseMaterial.Get();
 	BlueMaterial = ConstructorStatics.BlueMaterial.Get();
 	OrangeMaterial = ConstructorStatics.OrangeMaterial.Get();
+
+	// Create static mesh component
+	int32 tempValue = FMath::RandHelper(26);
+	// FChar tempChar = "A";	
+	// FString myChar = FString(tempChar);
+	Letter = CreateDefaultSubobject<UTextRenderComponent>("Letter");
+	Letter->SetRelativeLocation(FVector(0.f, 0.f, 100.f));
+	Letter->SetRelativeRotation(FRotator(90.f, 0.f, 180.f));
+	Letter->SetText(FText::Format(LOCTEXT("LetterFmt", "{0}"), FText::AsNumber(0)));
+	Letter->SetWorldScale3D(FVector(3.0f, 3.0f, 3.0f));
+	Letter->SetupAttachment(DummyRoot);
 }
 
 void AWordSearchBlock::BeginPlay()
@@ -150,3 +164,5 @@ void AWordSearchBlock::Select()
 	bIsActive = true;
 	BlockMesh->SetMaterial(0, OrangeMaterial);
 }
+
+#undef LOCTEXT_NAMESPACE

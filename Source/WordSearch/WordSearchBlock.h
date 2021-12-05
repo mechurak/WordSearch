@@ -20,6 +20,9 @@ class AWordSearchBlock : public AActor
 	UPROPERTY(Category = Block, VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	class UStaticMeshComponent* BlockMesh;
 
+	UPROPERTY(Category = Block, VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	class UTextRenderComponent* Letter;
+
 public:
 	AWordSearchBlock();
 
